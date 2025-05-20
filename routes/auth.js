@@ -22,4 +22,20 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const existing = await User.findOne({ email });
+    if (!existing) {
+      res.status(400).json({ message: "user is not exist" });
+    }
+    const ismatch = await bcrypt.compare(password, existing.password);
+    if (!ismatch) {
+      res.status(400).json({ message: "password is not correct" });
+    }
+    res.status(200).json({ message: "login is successfull" });
+  } catch (e) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
 module.exports = router;
