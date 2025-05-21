@@ -17,14 +17,13 @@ mongoose
   .catch((e) => console.log(e));
 
 const authrout = require("./routes/auth");
+const cartroute = require("./routes/cart");
 
-// const cartroute = require("./routes/cart");
-
-// const productroute = require("./routes/product");
+const productroute = require("./routes/product");
 
 app.use("/api", authrout);
 // app.use("/api", cartroute);
-// app.use("/api", productroute);
+app.use("/api", productroute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
